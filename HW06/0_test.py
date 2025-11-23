@@ -13,12 +13,12 @@ from matplotlib.gridspec import GridSpec
 # Lorenz 
 # ------
 
-a = random.uniform(-10, 10)
-b = random.uniform(-10, 10)
-c = random.uniform(-10, 10)
+a = random.uniform(-1, 1)
+b = random.uniform(-1, 1)
+c = random.uniform(-1, 1)
 
 y1_0 = np.array([a, b, c])    # random initial value 1
-y2_0 = np.array([0, 0, 0])    # initial value 2
+y2_0 = np.array([0.01, 0.01, 0.01])    # initial value 2
 t0 = 0.0    # initial time
 T = 30      # final time
 dt = 0.01   # step size
@@ -30,9 +30,9 @@ lorenz = lambda t , x : np.array([
     x[0]*x[1] - beta*x[2]
 ])
 
-mu = 2
+mu = 1
 lorenz_modified = lambda t , x : np.array([
-    sigma*(x[1] - x[0]) + mu*(lorenz(t, x)[1]-x[0]),
+    sigma*(x[1] - x[0]) + mu*(lorenz(t, x)[0]-x[0]),
     x[0]*(rho - x[2]) - x[1],
     x[0]*x[1] - beta*x[2]
 ])
