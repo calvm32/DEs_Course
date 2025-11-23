@@ -51,7 +51,7 @@ ax1.set_xlabel('x'); ax1.set_ylabel('y'); ax1.set_zlabel('z')
 
 # second row = error
 ax2 = fig.add_subplot(gs[1, 0])
-ax2.plot(t, errors, color='red')
+ax2.semilogy(t, errors, color='red')
 ax2.set_xlabel('t'); ax2.set_ylabel('error(t)')
 
 plt.show()
