@@ -35,17 +35,17 @@ def rk4_modified(f1, f2, y1_0, y2_0, t0, T, dt):
 
         # solve func 1
         k1 = f1(t[n], y1[:, n])
-        k2 = f1(t[n] + dt/2, y[:, n] + (dt*k1)/2)
-        k3 = f1(t[n] + dt/2, y[:, n] + (dt*k2)/2)
-        k4 = f1(t[n] + dt, y[:, n] + (dt*k3))
+        k2 = f1(t[n] + dt/2, y1[:, n] + (dt*k1)/2)
+        k3 = f1(t[n] + dt/2, y1[:, n] + (dt*k2)/2)
+        k4 = f1(t[n] + dt, y1[:, n] + (dt*k3))
 
         y1[:, n+1] = y1[:, n] + (dt/6)*(k1 + (2*k2) + (2*k3)+k4)
 
         # solve func 2, reuse names bc oh well
         k1 = f2(t[n], y2[:, n])
-        k2 = f2(t[n] + dt/2, y[:, n] + (dt*k1)/2)
-        k3 = f2(t[n] + dt/2, y[:, n] + (dt*k2)/2)
-        k4 = f2(t[n] + dt, y[:, n] + (dt*k3))
+        k2 = f2(t[n] + dt/2, y2[:, n] + (dt*k1)/2)
+        k3 = f2(t[n] + dt/2, y2[:, n] + (dt*k2)/2)
+        k4 = f2(t[n] + dt, y2[:, n] + (dt*k3))
 
         y2[:, n+1] = y2[:, n] + (dt/6)*(k1 + (2*k2) + (2*k3)+k4)
     
