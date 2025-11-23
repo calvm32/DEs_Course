@@ -40,15 +40,14 @@ lorenz_modified = lambda t , x : np.array([
 X1 , X2, errors, t = rk4_modified(lorenz, lorenz_modified, y1_0, y2_0, t0, T, dt)
 # X , t = rk4_ndim(lorenz, y0, t0, T, dt)
 
-fig = plt.figure(figsize=(8, 16)) # 1x2
-gs = GridSpec(1, 2, figure=fig) # actual layout
+fig = plt.figure(figsize=(5,7)) # 1x2
+gs = GridSpec(2, 1, figure=fig) # actual layout
 
 # first row = 3d plots
-fig = plt.figure()
 ax1 = fig.add_subplot(gs[0, 0], projection='3d')
 ax1.plot(X1[0,:], X1[1,:], X1[2,:])
 ax1.plot(X2[0,:], X2[1,:], X2[2,:], color='green')
-ax1.set_xlabel('x'); ax.set_ylabel('y'); ax.set_zlabel('z')
+ax1.set_xlabel('x'); ax1.set_ylabel('y'); ax1.set_zlabel('z')
 
 # second row = error
 ax2 = fig.add_subplot(gs[1, 0])
