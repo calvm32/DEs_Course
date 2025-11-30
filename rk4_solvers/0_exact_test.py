@@ -1,12 +1,9 @@
-import sys
-sys.path.insert(0, "HW02")  # add Folder_2 path to search list <- got this solution from Google
-
 import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-from rk4 import rk4
-from rk4_error import rk4_error
+from rk4_solvers.rk4 import rk4
+from rk4_solvers.rk4_error import rk4_error
 
 # ----------------
 # RK4 general test

@@ -1,10 +1,6 @@
-import sys
-sys.path.insert(0, "HW02")
-
 import numpy as np
 import matplotlib.pyplot as plt
 
-from rk4_ndim import rk4_ndim
 from rk4_modified import rk4_modified
 import random
 from matplotlib.gridspec import GridSpec
