@@ -4,22 +4,8 @@ def rk4_ndim(f, y0, t0, T, dt, n):
     """
     Solve the ODE y' = f(t,y) on the interval [t0,T] with y (t0) = y0
     using the Runge-Kutta-4 3D approximation method 
-    
-    Parameters
-    ----------
-    f       : function
-    y0      : initial condition
-    t0      : initial time
-    T       : final time
-    dt      : step size
-    n       : dimension
-    
-    Returns
-    -------
-    y       : approximate solution
-    t       : time resolutions
-    
     """
+    
     N = int(np.floor((T-t0)/dt) + 1) # fixed number of steps
     t = t0+dt*np.arange(0,N)
     

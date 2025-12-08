@@ -5,21 +5,8 @@ def euler_forward_error(y_exact, f, y0, t0, T):
     """
     Find the error of the ODE y' = f(t,y) on the interval [t0,T] with y (t0) = y0,
     when solved using the forward Euler approximation method 
-    
-    Parameters
-    ----------
-    y_exact     : exact solution
-    f           : function
-    y0          : initial condition
-    t0          : initial time
-    T           : final time
-    
-    Returns
-    -------
-    global_errors   : array of global errors
-    resolutions     : time resolutions
-    
     """
+    
     resolutions = np.arange(10, 1001, 10)
     global_errors = []
 

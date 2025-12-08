@@ -4,23 +4,6 @@ def rk4_modified(f1, f2, y1_0, y2_0, t0, T, dt):
     """
     Solve two related ODEs on the interval [t0,T] with y (t0) = y0
     using the Runge-Kutta-4 3D approximation method 
-    
-    Parameters
-    ----------
-    f1      : function 1
-    f2      : function 2
-    y1_0    : initial condition for func 1
-    y2_0    : initial condition for func 2 
-    t0      : initial time
-    T       : final time
-    dt      : step size
-    
-    Returns
-    -------
-    y1      : approximate solution for func 1
-    y2      : approximate solution for func 2
-    t       : time resolutions
-    
     """
     N = int(np.floor((T-t0)/dt) + 1) # fixed number of steps
     t = t0+dt*np.arange(0,N)
