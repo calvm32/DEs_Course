@@ -1,12 +1,15 @@
 import sys
-sys.path.insert(0, "rk4_solvers")
+import os
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # from google ai search result
+sys.path.append(parent_dir)
+
+from rk4_solvers import rk4_error
+from rk4_solvers import rk4_ndim
 
 import numpy as np
 import matplotlib.pyplot as plt
 from euler_forward_error import euler_forward_error
-
-from rk4_solvers.rk4_error import rk4_error
-from rk4_solvers.rk4_ndim import rk4_ndim
 
 # ------------------------
 # Euler vs. RK4 in 2D case

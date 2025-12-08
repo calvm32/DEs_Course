@@ -1,0 +1,34 @@
+import sys
+import os
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # from google ai search result
+sys.path.append(parent_dir)
+
+from rk4_solvers import rk4_ndim
+
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
+import random
+
+# convert y'' + (y^2- 1)y' + y = 0 into system of 2d
+# set u = y, and v = y'
+
+f = lambda t, y: np.array([y[1], -(y[0]**2 - 1)*y[1] - y[0]])
+
+y0 = [1, 0]     # initial value
+t0 = 0.0            # initial time
+T = 100.0            # final time
+dt = 0.05           # step size
+
+y_approx , t = rk4_ndim(f, y0, t0, T, dt, 2)
+
+# plot the approximate solution
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+ax.plot(t, y_approx[0, :], y_approx[1, :])
+ax.set_title(f"IC = ({y0[0]:.2f}, {y0[1]:.2f})")
+ax.legend()
+
+plt.show()

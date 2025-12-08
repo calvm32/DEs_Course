@@ -17,7 +17,7 @@ T = 5.0     # final time
 dt = 0.005   # step size
 M = 10**4   # threshold
 
-y_approx , t = rk4(f, y0, t0, T, dt, M)
+y_approx , t = rk4(f, y0, t0, T, dt)
 
 # plot the approximate solution
 plt.plot(t , y_approx , "-o" , label = "RK4 approximation")

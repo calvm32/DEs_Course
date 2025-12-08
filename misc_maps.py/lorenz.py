@@ -1,9 +1,15 @@
+import sys
+import os
+
+parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..')) # from google ai search result
+sys.path.append(parent_dir)
+
+from rk4_solvers import rk4_modified
+
 import numpy as np
 import matplotlib.pyplot as plt
-
-from rk4_modified import rk4_modified
-import random
 from matplotlib.gridspec import GridSpec
+import random
 
 # ------
 # Lorenz 
@@ -14,7 +20,7 @@ b = random.uniform(-1, 1)
 c = random.uniform(-1, 1)
 
 y1_0 = np.array([a, b, c]); print(y1_0)     # random initial value 1
-y2_0 = np.array([0.001, 0.001, 0.001])         # initial value 2
+y2_0 = np.array([0.001, 0.001, 0.001])      # initial value 2
 t0 = 0.0    # initial time
 T = 100      # final time
 dt = 0.01   # step size

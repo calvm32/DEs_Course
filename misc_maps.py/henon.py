@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-from matplotlib.gridspec import GridSpec
 import math
 import random
 import numpy as np

@@ -17,7 +17,7 @@ for n in range(1,10001):
 
     count_list.append(counter)
 
-plt.semilogy(IC_list, count_list)
+plt.semilogx(IC_list, count_list)
 plt.xlabel("Initial Condition")
 plt.ylabel("log(Iterations taken to reach 1)")
 plt.show()
