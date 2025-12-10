@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
+""" 
+This code graphs a phase space given the solution's Jacobian
+"""
 
 P = np.array([[1, 1, 1],
               [-1, 0, -1],
@@ -20,11 +23,15 @@ x0 = np.array([[0], [-1], [1]])
 
 exp_At = lambda t : P @ exp_Dt(t) @ exp_Nt(t) @ np.linalg.inv(P) @ x0
 
+# ----
+# plot
+# ----
+
 t_vals = np.linspace(0, 40, 400)
-trajectory = np.hstack([exp_At(t) for t in t_vals]) # try horizontal vector?
+trajectory = np.hstack([exp_At(t) for t in t_vals]) # horizontal vector
 x, y, z = trajectory
 
-fig = plt.figure(figsize=(12, 8)) # 3x2, first row = twice height of bottom?
+fig = plt.figure(figsize=(12, 8)) # 3x2, first row = twice height of bottom
 gs = GridSpec(2, 3, height_ratios=[2, 1], figure=fig) # actual layout
 
 # layout, make first one big

@@ -5,34 +5,10 @@ import math
 from rk4_solvers.rk4 import rk4
 from rk4_solvers.rk4_error import rk4_error
 
-# ----------------
-# RK4 general test
-# ----------------
-
-f = lambda t , y : (y**2) - (y/3) - (t**2) # y^2-y/3-t^2
-
-y0 = 1.0    # initial value
-t0 = 0.0    # initial time
-T = 5.0     # final time
-dt = 0.005   # step size
-M = 10**4   # threshold
-
-y_approx , t = rk4(f, y0, t0, T, dt)
-
-# plot the approximate solution
-plt.plot(t , y_approx , "-o" , label = "RK4 approximation")
-plt.axvline(x=math.exp(1)/2, color='r', label = "e/2")
-plt.axvline(x=1.35, color='purple', label = "1.35")
-plt.axvline(x=1.34, color='green', label = "1.34")
-plt.xlabel("t")
-plt.ylabel("y(t)")
-plt.legend()
-plt.title("M = " + str(M))
-plt.show()
-
-# -------------------
-# RK4 with exact soln
-# -------------------
+"""
+This code tests Euler forward to make sure it converges at
+a rate which approximately matches the theoretical theoretical rate
+"""
 
 f = lambda t , y : 0*t + y**2
 y_exact = lambda t : (-1)/(t -1)
@@ -50,6 +26,10 @@ errors, resolutions = rk4_error(y_exact, f, y0, t, M)
 y_exact_eval = np.array([],dtype = float)
 for i in range(len(t)):
     y_exact_eval = np.append(y_exact_eval,y_exact(t[i]))
+
+# ----
+# plot
+# ----
 
 # plot the approximate solution
 plt.subplot(1,3,1)

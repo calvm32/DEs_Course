@@ -2,6 +2,11 @@ import matplotlib.pyplot as plt
 import math
 import random
 import numpy as np
+from matplotlib.gridspec import GridSpec
+
+"""
+This program plots the Hénon map
+"""
 
 # -----
 # setup
@@ -13,7 +18,7 @@ b = 0.005
 N_start = 100 # first iteration to plot
 N_end = 500 # final iteration to plot
 
-# ICs in (0,1)
+# random initial conditions
 x0 = random.uniform(-1, 1)
 y0 = random.uniform(-1, 1)
 
@@ -24,12 +29,13 @@ count_list = [] # for color mapping
 sin_list = [] # for color mapping comparison
 angles_list = [] # for color mapping comparison
 
+# norm for error evaluation
 def frob_norm(x,y):
     return ((a*(1-y))**2 + (a*x)**2 + (b*y)**2 + (b*(1-x))**2)**(1/2)
 
-# --------------------
-# actually run the map
-# --------------------
+# -----
+# solve
+# -----
 
 def run_mapping(x0, y0, a, b, N_start, N_end):
     LyE = 0
