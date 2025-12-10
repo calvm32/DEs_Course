@@ -16,6 +16,10 @@ This program plots solutions to the Van der Pol equation
 y'' + (y^2-1)y' + y = 0
 """
 
+# -----
+# setup
+# -----
+
 # convert y'' + (y^2- 1)y' + y = 0 into a 2d system
 # set u = y, and v = y'
 f = lambda t, y: np.array([y[1], -(y[0]**2 - 1)*y[1] - y[0]])

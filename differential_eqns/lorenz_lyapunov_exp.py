@@ -10,6 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 from scipy.integrate import solve_ivp
+import math
 
 # -----
 # setup
@@ -41,73 +42,59 @@ lorenz = lambda t , x : np.array([
     x[0]*x[1] - beta*x[2]
 ])
 
-# solve and plot solution
-X , t = rk4_ndim(lorenz, y1_0, t0, T, dt, 3)
+# ------------------------------------------
+# solve for both trajectories + get distance
+# ------------------------------------------
 
-##
-# Now we solve for two trajectories that have a small initial separation,
-# say $10^{-9}$.
+# trajectory 1
+X1, t = rk4_ndim(lorenz, y1_0, t0, T, dt, 3)
+print(t)
 
-ep = 1e-9
-N.lbc = @(x,y,z) [x+2; y+3; z-14];
-[x1,y1,z1] = N\0;         # Components of 1st trajectory
-N.lbc = @(x,y,z) [x+2; y+3; z-14+ep];
-[x2,y2,z2] = N\0;         # Components of 2nd trajectory
+# trajectory 2 (slightly perturbed)
+X2, _ = rk4_ndim(lorenz, y2_0, t0, T, dt, 3)
 
-##
-# Now we find the distance between trajectories using the distance formula.
-# This distance, which is a function of time, is plotted using a log scale on
-# the y-axis.
+# -------------
+# plot distance
+# -------------
 
-d = sqrt(abs(x1-x2)^2 + abs(y1-y2)^2 + abs(z1-z2)^2);
-semilogy(d)
-xlabel('time')
-title('magnitude of separation of nearby Lorenz trajectories')
+# Distance
 
-##
-# The log of the distance between trajectories is well approximated by a
-# straight line with positive slope, so it seems the Lorenz system has a
-# positive Lyapunov exponent.
+# force np arrays
 
-##
-# Notice, however, that the positive slope only holds up for the first 25 time
-# units or so. After that, the curve levels off. That is because all
-# trajectories of the Lorenz system wind up in its strange attractor: since
-# trajectories are bounded, they can only get so far apart.
+d = np.linalg.norm(X1.T-X2.T, axis=1) # take transpose so it works
 
-##
-# The slope of the line can be computed by finding a linear fit to the log of
-# `d`. We'll only use the first 25 time units, the range where the separation
-# increases exponentially.
+plt.figure(figsize=(8,5))
+plt.semilogy(t, d)
+plt.xlabel("Time")
+plt.ylabel("Distance")
+plt.title("Separation of nearby Lorenz trajectories")
+plt.grid(True)
+plt.show()
 
-logd = log(d{0, 25});
-logd2 = polyfit(logd, 1);
-slope = logd2(1) - logd2(0)
+# --------------------------------------
+# plot exponentially increasing distance
+# --------------------------------------
 
-##
-# And here it is for comparison to the previous plot:
-hold on
-x = chebfun('x', [0 dom(2)]);
-semilogy(.8e-9 * exp(slope*x), 'k--')
-legend('dist(traj_1, traj_2)', sprintf('exp(#1.2f x)', slope), ...
-    'location', 'northwest')
+mask = t <= 25
+logd = np.log(d[mask])
 
-##
-# This approximation isn't bad at all -- the maximal Lyapunov exponent for the
-# Lorenz system is known to be about $0.9056$ [3].
-# To calculate it more accurately we could average over many trajectories.
-# It is remarkable that this characteristic quantity of the most famous
-# chaotic system is known to only a few decimal places; it is indicative of
-# the difficulty in analyzing complex behavior.
+# linear fit given by log(distance) = slope * t + intercept
+slope, intercept = np.polyfit(t[mask], logd, 1)
+print(f"Estimated maximal Lyapunov exponent: {slope:.4f}")
 
-## References
-#
-# 1. Strogatz, Steven H. _Nonlinear dynamics and chaos: with applications to
-#    physics, biology and chemistry._ Perseus publishing, 2001.
-#
-# 2. Seydel, Rudiger. _Practical bifurcation and stability analysis._
-#    Springer, 2010.
-#
-# 3. Viswanath, Divakar. _Lyapunov exponents from random Fibonacci sequences
-#    to the Lorenz equations._ Doctoral dissertation. Cornell University,
-#    1998.
+plt.figure(figsize=(8,5))
+plt.semilogy(t, d, label="dist(traj1, traj2)")
+plt.semilogy(t, np.exp(intercept + slope*t), 'k--', label=f'exp({slope:.2f} t)')
+plt.xlabel("Time")
+plt.ylabel("Distance")
+plt.title("Lyapunov exponent estimation")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# ----------
+# references
+# ----------
+
+# this was converted from the MATLAB code found in
+# https://github.com/chebfun/examples/blob/master/ode-nonlin/LyapunovExponents.m
